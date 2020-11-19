@@ -1,0 +1,27 @@
+#include "Bsp_Gpio.h"
+
+void GPIOToLowPowerMode(void)
+{
+	GPIO_InitTypeDef GPIO_Init;
+	
+	__HAL_RCC_GPIOA_CLK_ENABLE();	
+	__HAL_RCC_GPIOB_CLK_ENABLE();
+	__HAL_RCC_GPIOC_CLK_ENABLE();
+	
+	GPIO_Init.Pin = 0xFFFF;
+	GPIO_Init.Mode = GPIO_MODE_ANALOG;
+	GPIO_Init.Pull = GPIO_NOPULL;
+
+	HAL_GPIO_Init(GPIOA,&GPIO_Init);
+
+	GPIO_Init.Pin = 0xFFFF;
+	HAL_GPIO_Init(GPIOB,&GPIO_Init);
+	
+	GPIO_Init.Pin = 0xFFFF;
+	HAL_GPIO_Init(GPIOC,&GPIO_Init);
+	
+	__HAL_RCC_GPIOA_CLK_DISABLE();	
+	__HAL_RCC_GPIOB_CLK_DISABLE();
+	__HAL_RCC_GPIOC_CLK_DISABLE();
+}
+
